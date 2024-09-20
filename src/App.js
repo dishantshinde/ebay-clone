@@ -25,7 +25,7 @@ import Watchlist from "./pages/watchlist";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // // dispatch(fetchCategories());
+    dispatch(fetchCategories());
     dispatch(fetchDeals());
     dispatch(fetchProducts("top deals"));
   }, [dispatch]);
