@@ -5,6 +5,7 @@ import { auth, provider } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -61,9 +62,9 @@ export default function Login() {
           <p className="text-4xl font-bold">Hello</p>
           <p>
             Login to eBay or{" "}
-            <a className="text-blue-500 " href="/signup">
+            <Link className="text-blue-500" to="/signup">
               Signup
-            </a>
+            </Link>
           </p>
         </div>
         <input
