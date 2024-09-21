@@ -17,7 +17,7 @@ import Products from "./pages/products";
 import ProductDetails from "./pages/productDetail";
 import Categories from "./pages/categories";
 import { fetchDeals } from "./redux/slices/deals/dealApi";
-import { fetchProducts } from "./redux/slices/products/productApi";
+import { fetchtopDeals } from "./redux/slices/products/productApi";
 import { fetchProductDetails } from "./redux/slices/productDetails/productDetailsApi";
 import Cart from "./pages/Cart";
 import Watchlist from "./pages/watchlist";
@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchDeals());
-    dispatch(fetchProducts("top deals"));
+    dispatch(fetchtopDeals());
   }, [dispatch]);
 
   const apiKey = process.env.REACT_APP_API_KEY;

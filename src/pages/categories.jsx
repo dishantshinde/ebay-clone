@@ -5,7 +5,7 @@ import Slider from "../components/Slider";
 import { useSelector } from "react-redux";
 export default function Categories() {
   const deals = useSelector((state) => state.deal.deals);
-  const productData = useSelector((state) => state.product.products);
+  const productData = useSelector((state) => state.product.topdeals);
   if (!productData || !deals) {
     return;
   }

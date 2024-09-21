@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "./productApi";
+import { fetchProducts, fetchtopDeals } from "./productApi";
 
 const initialState = {
   products: [],
+  topdeals: [],
   status: "idle", // Can be 'idle', 'loading', 'succeeded', or 'failed'
   error: null,
 };
@@ -24,6 +25,9 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchtopDeals.fulfilled, (state, action) => {
+        state.topdeals = action.payload;
       });
   },
 });
