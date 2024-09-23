@@ -65,3 +65,6 @@ html {
 ::-webkit-scrollbar-button {
   display: none; /* Hides any scrollbar buttons */
 }
+* {
+  box-sizing: border-box;
+}

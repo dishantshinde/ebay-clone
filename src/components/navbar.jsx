@@ -238,7 +238,7 @@ export default function Navbar() {
       <hr />
 
       {/* Main Navigation and Search */}
-      <div className="flex justify-center">
+      <div className="hidden sm:flex justify-center">
         <div
           onClick={() => navigate("/")}
           className="flex cursor-pointer justify-between items-center w-[93vw] h-[90px]"
@@ -339,6 +339,39 @@ export default function Navbar() {
           >
             Advanced
           </button>
+        </div>
+      </div>
+      <div className="w-[95vw] flex sm:hidden mx-auto flex-col mt-4 gap-4">
+        <img className="w-[40%]" src={ebayicon} alt="ebayicon" />
+        <div className="flex gap-2 w-[100%] items-center border-[3px] border-black rounded-full px-6 py-2">
+          <svg
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent parent onClick
+              handleSearch();
+            }}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="size-5 cursor-pointer"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+          <input
+            type="text"
+            className="border-none w-[50vw] focus:outline-none"
+            placeholder="Enter content to search"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              console.log("Search input:", e.target.value);
+            }}
+          />
         </div>
       </div>
 
