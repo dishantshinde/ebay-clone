@@ -35,7 +35,7 @@ export default function Login() {
       const result = await signInWithPopup(auth, provider);
       // The signed-in user info
       const user = result.user;
-      console.log("User signed in or signed up:", user);
+      console.log("User signed in or signed up:", user.email);
       if (user) {
         navigate("/");
       }

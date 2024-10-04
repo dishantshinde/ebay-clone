@@ -21,13 +21,14 @@ import { fetchtopDeals } from "./redux/slices/products/productApi";
 import { fetchProductDetails } from "./redux/slices/productDetails/productDetailsApi";
 import Cart from "./pages/Cart";
 import Watchlist from "./pages/watchlist";
+import OrderHistory from "./pages/Ordershistory";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchDeals());
-    dispatch(fetchtopDeals());
+    // dispatch(fetchCategories());
+    // dispatch(fetchDeals());
+    // dispatch(fetchtopDeals());
   }, [dispatch]);
 
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -59,6 +60,7 @@ function AppContent() {
           />
           <Route path="cart" element={<Cart />} />
           <Route path="watchlist/products" element={<Watchlist />} />
+          <Route path="orderhistory" element={<OrderHistory />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

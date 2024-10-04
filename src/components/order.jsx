@@ -3,7 +3,8 @@ import { AppContext } from "../context/AppContext";
 import checked from "../assets/checked.png";
 import cross from "../assets/close.png";
 export default function Order() {
-  const { cartitems, setPurchaseItems, setCartitems } = useContext(AppContext);
+  const { cartitems, setPurchaseItems, setCartitems, handleAddOrders } =
+    useContext(AppContext);
   const [totalitems, setTotalitems] = useState({});
   const [showModal, setShowModal] = useState(false);
   console.log("carditems..", cartitems);
@@ -59,6 +60,10 @@ export default function Order() {
             setShowModal(true);
             setPurchaseItems((prev) => {
               return prev + totalitems.noOfitems;
+            });
+            handleAddOrders(cartitems, {
+              totalItems: totalitems.noOfitems,
+              totalAmount: totalitems.totalAmmount,
             });
           }}
           className="bg-blue-500 hover:bg-blue-700 px-9 py-3 my-4 cursor-pointer rounded-full shadow-lg text-white"

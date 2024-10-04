@@ -54,7 +54,7 @@ export default function ItemDescription({
         <div className="flex flex-col">
           <ul className="flex sm:flex-col gap-4 flex-wrap">
             {additionalImages
-              .map((image, indx) => {
+              ?.map((image, indx) => {
                 return (
                   <li
                     key={indx}

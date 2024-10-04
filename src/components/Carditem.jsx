@@ -4,38 +4,35 @@ import heartFilled from "../assets/heart filled.png";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import Watchlist from "../pages/watchlist";
+import axios from "axios";
 
 const CardItem = ({ image, price, description, asin, ishome, iswatchlist }) => {
   const navigate = useNavigate();
-  const { setWishlist, wishlist } = useContext(AppContext);
+  const { handleAddOrDeletetoWatchlist, wishlist } = useContext(AppContext);
   const [isAdd, setIsAdd] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-
   useEffect(() => {
-    if (iswatchlist) {
+    if (wishlist?.some((ele) => ele.asin === asin)) {
       setIsAdd(true);
+    } else {
+      setIsAdd(false);
     }
-  }, [iswatchlist]);
+  }, [wishlist, asin]);
 
   const handleWishList = (e) => {
     e.stopPropagation();
     if (isDisabled) return;
-
     setIsDisabled(true);
-    if (isAdd) {
-      const filteredWishlist = wishlist.filter((ele) => ele.asin !== asin);
-      setWishlist(filteredWishlist);
-    } else {
-      setWishlist((prev) => {
-        // Ensure prev is an array
-        return Array.isArray(prev)
-          ? [...prev, { image, price, description, asin, ishome }]
-          : [{ image, price, description, asin, ishome }]; // Fallback if prev is not an array
-      });
-    }
+    handleAddOrDeletetoWatchlist({
+      image,
+      price,
+      description,
+      asin,
+      ishome,
+      iswatchlist,
+    });
 
     setTimeout(() => {
-      setIsAdd((prev) => !prev);
       setIsDisabled(false);
     }, 200);
   };
@@ -62,11 +59,7 @@ const CardItem = ({ image, price, description, asin, ishome, iswatchlist }) => {
           onClick={handleWishList}
           className="absolute top-2 z-40 right-2 cursor-pointer flex items-center justify-center w-7 h-7 rounded-full shadow-lg bg-white"
         >
-          <img
-            className="w-[60%]"
-            src={(iswatchlist && heartFilled) || isAdd ? heartFilled : heart}
-            alt=""
-          />
+          <img className="w-[60%]" src={isAdd ? heartFilled : heart} alt="" />
         </div>
       </div>
       <div className="mt-2 flex flex-col gap-2">

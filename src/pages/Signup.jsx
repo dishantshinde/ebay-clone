@@ -4,6 +4,7 @@ import Logo from "../assets/ebay 2.png";
 import { auth, provider } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });
   const [agree, setAgree] = useState(false); // To track checkbox state
+  const navigate = useNavigate();
 
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   useEffect(() => {
@@ -67,6 +69,7 @@ export default function Signup() {
       // The signed-in user info
       const user = result.user;
       console.log("User signed in or signed up:", user);
+      navigate("/login");
 
       // Optionally, you can redirect the user or update the UI
     } catch (error) {

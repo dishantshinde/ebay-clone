@@ -6,6 +6,8 @@ import { AppContext } from "../context/AppContext";
 import check from "../assets/checked.png";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import watchlistIcon from "../assets/bookmark.png";
+import OrdersIcon from "../assets/shopping-bag.png";
 
 export default function Navbar() {
   const categories = useSelector((state) => state.category.categories);
@@ -93,32 +95,35 @@ export default function Navbar() {
 
           {/* Watchlist Dropdown */}
           <div className="relative flex items-center cursor-pointer">
-            <span
-              onClick={() => setShowWatchList((prev) => !prev)}
-              role="button"
-              tabIndex="0"
-              onKeyPress={(e) => {
-                if (e.key === "Enter") setShowWatchList((prev) => !prev);
-              }}
-              className="mr-[2px] hover:underline"
-            >
-              Watchlist
-            </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-3"
-              onClick={() => setShowWatchList((prev) => !prev)}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 13-7.5 7.5-7.5-7.5"
-              />
-            </svg>
+            <div className="hidden sm:flex items-center">
+              <span
+                onClick={() => setShowWatchList((prev) => !prev)}
+                role="button"
+                tabIndex="0"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") setShowWatchList((prev) => !prev);
+                }}
+                className="mr-[2px] hover:underline"
+              >
+                Watchlist
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-3"
+                onClick={() => setShowWatchList((prev) => !prev)}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 13-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+            <img className="w-6 sm:hidden" src={watchlistIcon} alt="" />
             {showWatchList && (
               <div className="absolute top-full right-0 p-1 z-40 bg-slate-50 shadow-xl gap-4 rounded-md sm:w-[20rem] w-[10rem] max-h-[50vw] overflow-y-scroll">
                 <ol className="flex flex-col gap-2">
@@ -141,24 +146,31 @@ export default function Navbar() {
           </div>
 
           {/* My Ebay Dropdown */}
-          <div className="flex items-center">
-            <span className="hidden sm:inline cursor-pointer hover:text-blue-600">
-              My Ebay
-            </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-3 hidden sm:inline"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 13-7.5 7.5-7.5-7.5"
-              />
-            </svg>
+          <div
+            className="flex items-center"
+            onClick={() => navigate("orderhistory")}
+          >
+            <div>
+              {" "}
+              <span className="hidden sm:inline cursor-pointer hover:underline">
+                My Orders
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-3 hidden sm:inline"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 13-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+            <img className="w-6 sm:hidden" src={OrdersIcon} alt="" />
           </div>
 
           {/* Purchase Items Indicator */}
