@@ -90,7 +90,7 @@ export const AppProvider = ({ children }) => {
   const getAllOrders = async (email) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/user/orders?email=${email}`
+        `https://ebay-backend-smla.onrender.com/api/user/orders?email=${email}`
       );
       console.log("orders fetched are", response.data.data);
       setOrder(response.data.data);
