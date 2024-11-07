@@ -26,9 +26,9 @@ import OrderHistory from "./pages/Ordershistory";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(fetchCategories());
-    // dispatch(fetchDeals());
-    // dispatch(fetchtopDeals());
+    dispatch(fetchCategories());
+    dispatch(fetchDeals());
+    dispatch(fetchtopDeals());
   }, [dispatch]);
 
   const apiKey = process.env.REACT_APP_API_KEY;
