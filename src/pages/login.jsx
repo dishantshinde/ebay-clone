@@ -12,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSignin = async (email, password) => {
     try {
@@ -30,20 +31,27 @@ export default function Login() {
       setError(error.message);
     }
   };
+
   const handleGoogleSignIn = async () => {
+    if (loading) return; // prevent multiple triggers
+    setLoading(true);
     try {
-      provider.setCustomParameters({ prompt: "select_account" }); // Force account chooser
+      provider.setCustomParameters({ prompt: "select_account" });
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("User signed in:", user.email);
       navigate("/");
     } catch (error) {
-      if (error.code === "auth/popup-blocked") {
-        console.warn("Popup blocked, trying redirect...");
-        signInWithRedirect(auth, provider); // Fallback
+      if (error.code === "auth/cancelled-popup-request") {
+        console.warn("Cancelled popup request due to multiple attempts.");
+      } else if (error.code === "auth/popup-blocked") {
+        console.warn("Popup blocked, using redirect...");
+        await signInWithRedirect(auth, provider);
       } else {
         console.error("Google Sign-In Error:", error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
