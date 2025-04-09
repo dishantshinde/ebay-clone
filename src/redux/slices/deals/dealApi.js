@@ -36,7 +36,7 @@ export const fetchDeals = createAsyncThunk(
         productAsin: deal.product_asin,
       }));
 
-      console.log("Fetched deals data:", dealsData); // For debugging
+      console.log("Fetched deals data:", JSON.stringify(dealsData)); // For debugging
       return dealsData;
     } catch (error) {
       console.error("Error fetching deals:", error);

@@ -83,6 +83,7 @@ export const AppProvider = ({ children }) => {
         }
       );
       console.log("order added:", response.data);
+      getAllOrders(user);
     } catch (err) {
       console.error("Error adding order:", err.response?.data || err.message);
     }
@@ -96,6 +97,23 @@ export const AppProvider = ({ children }) => {
       setOrder(response.data.data);
     } catch (err) {
       console.error("Error fetching orders", err.message);
+    }
+  };
+  const handleRemoveOrder = async (id) => {
+    try {
+      const response = await axios.delete(
+        "https://ebay-backend-smla.onrender.com/api/user/orders/remove",
+        {
+          data: {
+            email: user, // Pass the email in the request body
+            id, // Pass the id in the request body
+          },
+        }
+      );
+      console.log("successfully removed order", response.data);
+      getAllOrders(user);
+    } catch (err) {
+      console.error("Error removing order :", err.message);
     }
   };
 
@@ -115,6 +133,7 @@ export const AppProvider = ({ children }) => {
         handleAddOrders,
         getAllOrders,
         order,
+        handleRemoveOrder,
       }}
     >
       {children}

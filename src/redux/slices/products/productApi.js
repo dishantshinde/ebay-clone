@@ -45,7 +45,7 @@ export const fetchProducts = createAsyncThunk(
         hasVariations: product.has_variations,
       }));
 
-      console.log("Fetched products data:", productsData); // For debugging
+      console.log("Fetched query data:", JSON.stringify(productsData)); // For debugging
       return productsData;
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -85,7 +85,7 @@ export const fetchtopDeals = createAsyncThunk(
         hasVariations: product.has_variations,
       }));
 
-      console.log("Fetched products data:", productsData); // For debugging
+      console.log("Fetched products data:", JSON.stringify(productsData)); // For debugging
       return productsData;
     } catch (error) {
       console.error("Error fetching products:", error);

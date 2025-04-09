@@ -3,7 +3,7 @@ import Logo from "../assets/ebay 2.png";
 import googlelogo from "../assets/google.png";
 import { auth, provider } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -32,23 +32,18 @@ export default function Login() {
   };
   const handleGoogleSignIn = async () => {
     try {
+      provider.setCustomParameters({ prompt: "select_account" }); // Force account chooser
       const result = await signInWithPopup(auth, provider);
-      // The signed-in user info
       const user = result.user;
-      console.log("User signed in or signed up:", user.email);
-      if (user) {
-        navigate("/");
-      }
-
-      // Optionally, you can redirect the user or update the UI
+      console.log("User signed in:", user.email);
+      navigate("/");
     } catch (error) {
-      // Handle Errors here
-      const errorMessage = error.message;
-
-      console.error(
-        "Error signing in or signing up with Google:",
-        errorMessage
-      );
+      if (error.code === "auth/popup-blocked") {
+        console.warn("Popup blocked, trying redirect...");
+        signInWithRedirect(auth, provider); // Fallback
+      } else {
+        console.error("Google Sign-In Error:", error.message);
+      }
     }
   };
 
